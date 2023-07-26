@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content%}
+<div class="row">
+    <div class="col-sm-4">
+        <h6 class="alert alert-info" >Add New Data</h6>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input class="btn btn-outline-primary btn-md mt-3 mx-auto" style="width: 200px;" type="submit" value="Submit Info">
+        </form>
+        
+    </div>
+
+    <div class="col-6 offset-1">
+        <table class="table table-info table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Age</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+
+
+              {% for l in li %}
+              
+              <tr>
+                <th scope="row">{{l.id}}</th>
+                <td>{{l.name}}</td>
+                <td>{{l.email}}</td>
+                <td>{{l.age}}</td>
+                <td>
+                <a href="{% url 'updatedata' l.id %}" class="btn btn-danger btn-sm d-inline">Edit</a>
+
+                <form class="d-inline" action="{% url 'deletedata' l.id %}" method="POST">
+                  {% csrf_token %}
+                  <input type="submit" class="btn btn-warning btn-sm" value="Delete">
+                </form>
+                </td>
+              </tr>
+
+
+              
+              {% endfor %}
+            </tbody>
+
+          </table>
+    </div>
+</div>
+
+
+
+{% endblock content%}
